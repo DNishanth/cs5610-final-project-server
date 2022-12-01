@@ -1,7 +1,7 @@
 import * as usersDao from './users-dao.js'
 
 const UsersController = (app) => {
-    // app.post('/api/register', createUser);
+    app.post('/api/register', createUser);
     // app.post('/api/login', loginUser);
     // app.post('/api/logout', logoutUser);
     // app.get('/api/profile', getUser);
@@ -9,8 +9,14 @@ const UsersController = (app) => {
 
 const createUser = async (req, res) => {
     const user = req.body;
-    await usersDao.createUser(user);
-    res.json(user);
+    const existingUser = await usersDao.findUserByUsername(user.username);
+    if (existingUser) {
+        res.sendStatus(403);
+        return;
+    }
+    const newUser = await usersDao.createUser(user);
+    // req.session['currentUser'] = newUser;
+    res.json(newUser);
 }
 
 const loginUser = async (req, res) => {
