@@ -2,7 +2,7 @@ import * as usersDao from './users-dao.js'
 
 const UsersController = (app) => {
     app.post('/api/register', createUser);
-    // app.post('/api/login', loginUser);
+    app.post('/api/login', loginUser);
     // app.post('/api/logout', logoutUser);
     // app.get('/api/profile', getUser);
 }
@@ -20,7 +20,14 @@ const createUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-
+    const userCred = req.body;
+    const existingUser = await usersDao.findUserByCredentials(userCred);
+    if (existingUser) {
+        req.session['currentUser'] = existingUser;
+        res.json(existingUser)
+        return;
+    }
+    res.sendStatus(403);
 }
 
 const logoutUser = async (req, res) => {
