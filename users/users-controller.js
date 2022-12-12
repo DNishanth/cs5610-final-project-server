@@ -15,7 +15,7 @@ const createUser = async (req, res) => {
         return;
     }
     const newUser = await usersDao.createUser(user);
-    // req.session['currentUser'] = newUser;
+    req.session['currentUser'] = newUser;
     res.json(newUser);
 }
 
