@@ -3,8 +3,8 @@ import * as usersDao from './users-dao.js'
 const UsersController = (app) => {
     app.post('/api/register', createUser);
     app.post('/api/login', loginUser);
-    // app.post('/api/logout', logoutUser);
-    // app.get('/api/profile', getUser);
+    app.post('/api/logout', logoutUser);
+    app.get('/api/profile', getCurrentUser);
 }
 
 const createUser = async (req, res) => {
@@ -31,11 +31,17 @@ const loginUser = async (req, res) => {
 }
 
 const logoutUser = async (req, res) => {
-
+    req.session.destroy();
+    res.sendStatus(200);
 }
 
-const getUser = async (req, res) => {
-    console.log("test");
+const getCurrentUser = async (req, res) => {
+    if (req.session['currentUser']) {
+        res.send(req.session['currentUser']);
+    }
+    else {
+        res.sendStatus(403);
+    }
 }
 
 export default UsersController;
