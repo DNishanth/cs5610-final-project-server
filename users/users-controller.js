@@ -8,7 +8,8 @@ const UsersController = (app) => {
 
 
     app.get('/api/register', findAllUsers)
-    app.get('/api/register/:username', findUserByUserName)
+    app.get('/api/profile/:username', findUserByUserName)
+    app.get('/api/profile/:uid', findUserByID)
     app.put('api/register/:uid', updateUser)
     app.delete('api/register/:uid', deleteUser)
 }
@@ -75,6 +76,12 @@ const findAllUsers = async (req, res) => {
 const findUserByUserName = async (req, res) => {
     const user=req.params.username;
     const existingUser = await usersDao.findUserByUsername(user);
+    res.json(existingUser)
+}
+
+const findUserByID = async (req, res) => {
+    const user=req.params.uid;
+    const existingUser = await usersDao.findUserById(user);
     res.json(existingUser)
 }
 export default UsersController;
