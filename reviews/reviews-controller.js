@@ -2,6 +2,7 @@ import * as reviewsDao from './reviews-dao.js'
 
 const ReviewsController = (app) => {
     app.post('/api/reviews', postReview);
+    app.delete('/api/reviews/:reviewID', deleteReview);
     app.get('/api/books/:workID/reviews', getReviewsByWorkID);
     app.get('/api/reviews/:userID/reviews', getReviewsByUserID);
 }
@@ -31,6 +32,13 @@ const getReviewsByUserID = async (req, res) => {
     const reviews = await reviewsDao.findReviewsByUserID(userID);
     // console.log(reviews)
     res.json(reviews);
+}
+
+const deleteReview = async (req, res) => {
+    const reviewID = req.params.reviewID;
+    await reviewsDao.deleteReview(reviewID);
+    res.json(reviewID);
+    // res.json({reviewID});
 }
 
 export default ReviewsController;
