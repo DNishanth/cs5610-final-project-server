@@ -7,7 +7,9 @@ const usersSchema = mongoose.Schema({
     lastName: {type: String},
     phone: {type: String},
     email: {type: String},
-    role: {type: String, enum: ["READER", "MODERATOR", "AUTHOR"], default: "READER"}
+    role: {type: String, enum: ["READER", "MODERATOR", "AUTHOR"], default: "READER"},
+    followers:[],
+    following:[]
 }, {collection: 'users'})
 
 export default usersSchema
