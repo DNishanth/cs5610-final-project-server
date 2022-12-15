@@ -1,0 +1,9 @@
+import usersModel from "./users-model.js";
+
+export const createUser = (user) => usersModel.create(user)
+
+export const findUserByUsername = async (username) =>
+    await usersModel.findOne({username})
+
+export const findUserByCredentials = async ({username, password}) =>
+    await usersModel.findOne({username, password})
