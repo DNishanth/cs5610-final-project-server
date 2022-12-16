@@ -22,3 +22,11 @@ export const updateUser = async (uid, userUpdates) =>
 
 export const findUserById = (uid) =>
     usersModel.findById(uid, {password: false})
+
+export const findUserAndUpdate = async (data) =>
+  await usersModel.findOneAndUpdate({_id: data._id}, data, {
+    new: true,
+    fields: {
+      password: 0
+    }
+  })

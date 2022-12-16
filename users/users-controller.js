@@ -1,4 +1,5 @@
 import * as usersDao from './users-dao.js'
+import {findUserAndUpdate} from './users-dao.js';
 
 const UsersController = (app) => {
     app.post('/api/register', createUser);
@@ -83,5 +84,15 @@ const findUserByID = async (req, res) => {
     const user=req.params.uid;
     const existingUser = await usersDao.findUserById(user);
     res.json(existingUser)
+}
+
+const updateProfile = async (req, res) => {
+
+    const data = await usersDao.findUserAndUpdate(req.body)
+    req.session['currentUser'] = data;
+    res.json({
+        status: 'ok',
+        data
+    })
 }
 export default UsersController;
