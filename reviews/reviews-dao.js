@@ -9,7 +9,7 @@ export const findReviewsByWorkID = async (workID) =>
         .exec()
 
 export const findReviewsByUserID = async (userID) =>
-    await reviewsModel.find({userID}).exec()
+    await reviewsModel.find({reviewer: userID}).exec()
 
 export const deleteReview = async (reviewID) =>
     await reviewsModel.deleteOne({_id: reviewID}).exec()
