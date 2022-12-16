@@ -15,14 +15,18 @@ const followUser = async (req, res) => {
 
 const getFollowersByUserID = async (req, res) => {
     const followedID = req.params.followedID;
-    const followers = await followersDao.findFollowersByUserID(followedID);
+    const followers = await followersDao.getFollowersByUserID(followedID);
     res.json(followers);
+    console.log("Returning followers")
+    console.log(followers);
 }
 
 const getFollowingByUserID = async (req, res) => {
     const followerID = req.params.followerID;
-    const followed = await followersDao.findFollowersByUserID(followerID);
+    const followed = await followersDao.getFollowingByUserID(followerID);
     res.json(followed);
+    console.log("Returning following")
+    console.log(followed);
 }
 
 export default FollowsController;
