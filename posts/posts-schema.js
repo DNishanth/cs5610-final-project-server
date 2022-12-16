@@ -9,7 +9,8 @@ const postSchema = mongoose.Schema(
       description: {type: String, required : true},
       likes: [],
       comments:[],
-      image: {type: String}
+      image: {type: String},
+      workID: {type: String},
     }, {collection: 'posts'}
 );
 

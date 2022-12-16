@@ -5,14 +5,15 @@ const PostsController = (app) => {
   app.post('/api/posts', createPost);
   app.get('/api/posts', getAllPosts);
   app.get('/api/posts/:author', findPostsByAuthor)
+  app.get('/api/posts/:workID/:author', findPostsByAuthorAndWorkID)
   app.put('api/posts/:uid', updatePost)
   app.delete('api/posts/:uid', deletePost)
 }
 
 const createPost = async (req, res) => {
   const post = req.body
-  //const currentUser = req.session['currentUser']
-  post.author = "6397bc55ba970668ff6a12be"//currentUser._id
+  const currentUser = req.session['currentUser']
+  post.author = currentUser._id
   const actualPost = await postsDao.createPost(post)
   res.json(actualPost)
 }
@@ -31,6 +32,13 @@ const deletePost=async(req,res)=>{
   const currentUser = req.session['currentUser']
   const author = currentUser._id
   const posts = await postsDao.findPostsByAuthor(author)
+  res.json(posts)
+}
+
+const findPostsByAuthorAndWorkID = async (req, res) => {
+  const author = req.params.author
+  const workID =req.params.workID
+  const posts = await postsDao.findPostsByAuthor(author,workID)
   res.json(posts)
 }
 
