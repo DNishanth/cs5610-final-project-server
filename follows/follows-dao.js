@@ -2,6 +2,9 @@ import followsModel from "./follows-model.js";
 
 export const followUser = (follow) => followsModel.create(follow)
 
+export const findFollow = async (follow) =>
+    await followsModel.findOne(follow)
+
 export const getFollowersByUserID = async (followedUserID) =>
     await followsModel.find(
         {followed: followedUserID})
