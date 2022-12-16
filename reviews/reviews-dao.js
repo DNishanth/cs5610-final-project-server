@@ -13,3 +13,6 @@ export const findReviewsByUserID = async (userID) =>
 
 export const deleteReview = async (reviewID) =>
     await reviewsModel.deleteOne({_id: reviewID}).exec()
+
+export const getReviews = async () =>
+    await reviewsModel.find().sort( { _id: -1 } )
