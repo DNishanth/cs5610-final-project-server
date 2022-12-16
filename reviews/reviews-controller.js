@@ -5,6 +5,7 @@ const ReviewsController = (app) => {
     app.delete('/api/reviews/:reviewID', deleteReview);
     app.get('/api/books/:workID/reviews', getReviewsByWorkID);
     app.get('/api/reviews/:userID/reviews', getReviewsByUserID);
+    app.get('/api/reviews', getReviews);
 }
 
 const postReview = async (req, res) => {
@@ -38,6 +39,12 @@ const deleteReview = async (req, res) => {
     const reviewID = req.params.reviewID;
     await reviewsDao.deleteReview(reviewID);
     res.json(reviewID);
+    // res.json({reviewID});
+}
+
+const getReviews = async (req, res) => {
+    const reviews = await reviewsDao.getReviews();
+    res.json(reviews);
     // res.json({reviewID});
 }
 
