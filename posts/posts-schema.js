@@ -1,18 +1,13 @@
 import mongoose from "mongoose";
 
-const postSchema = mongoose.Schema(
-    {
-    author: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'UsersModel'
-    },
-      description: {type: String, required : true},
-      likes: [],
-      comments:[],
-      image: {type: String},
-      workID: {type: String},
-    }, {collection: 'posts'}
-);
+const postsSchema = mongoose.Schema({
+  workID: {type: String, required: true},
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'UsersModel'
+  },
+  postText: {type: String, required: true}
+}, {collection: 'post'})
 
-
-export default postSchema
+export default postsSchema
