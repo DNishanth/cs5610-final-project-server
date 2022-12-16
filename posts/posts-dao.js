@@ -16,3 +16,6 @@ export const findPostsByAuthor = async (author) =>
 export const updatePost = async (postId, postUpdates) =>
     await postModel.updateOne({_id: postId},
         {$set: postUpdates})
+
+export const findPostByAuthorAndWorkID = async ({author,workID}) =>
+    await usersModel.find({author,workID}).exec()
