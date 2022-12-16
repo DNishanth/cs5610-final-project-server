@@ -5,6 +5,7 @@ import UsersController from "./users/users-controller.js";
 import ReviewsController from "./reviews/reviews-controller.js";
 import mongoose from "mongoose";
 import PostsController from "./posts/posts-controller.js";
+import FollowsController from "./follows/follows-controller.js";
 const CONNECTION_STRING = 'mongodb://localhost:27017/cs5610'
 
 const options = {
@@ -30,4 +31,5 @@ app.use(express.json());
 UsersController(app);
 ReviewsController(app);
 PostsController(app);
+FollowsController(app);
 app.listen(process.env.PORT || 4000);
