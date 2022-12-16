@@ -12,6 +12,8 @@ const UsersController = (app) => {
     app.get('/api/register/:uid', findUserByID)
     app.put('api/register/:uid', updateUser)
     app.delete('api/register/:uid', deleteUser)
+    app.post('/api/updateProfile', updateProfile);
+
 }
 
 const createUser = async (req, res) => {
@@ -89,4 +91,15 @@ const findUserByID = async (req, res) => {
     }
     res.sendStatus(404)
 }
+
+const updateProfile = async (req, res) => {
+
+    const data = await usersDao.findUserAndUpdate(req.body)
+    req.session['currentUser'] = data;
+    res.json({
+        status: 'ok',
+        data
+    })
+}
+
 export default UsersController;
