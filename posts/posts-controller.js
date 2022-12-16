@@ -1,7 +1,9 @@
 import * as postsDao from './posts-dao.js'
+import * as reviewsDao from "../reviews/reviews-dao.js";
 
 const PostsController = (app) => {
     app.post('/api/posts', postPost);
+    app.get('/api/posts', getPosts);
     app.delete('/api/posts/:postID', deletePost);
     app.get('/api/books/:workID/posts', getPostsByWorkID);
     app.get('/api/posts/:userID/posts', getPostsByUserID);
@@ -18,6 +20,12 @@ const postPost = async (req, res) => {
     else {
         res.sendStatus(403); // Must be logged in to post reviews
     }
+}
+
+const getPosts = async (req, res) => {
+    const posts = await postsDao.getPosts();
+    res.json(posts);
+    // res.json({reviewID});
 }
 
 const getPostsByWorkID = async (req, res) => {
