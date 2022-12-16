@@ -9,6 +9,15 @@ const FollowsController = (app) => {
 const followUser = async (req, res) => {
     const follow = req.body // Followed field comes from client
     follow.follower = req.session['currentUser']._id;
+    if (follow.followed === follow.follower) {
+        res.sendStatus(403);
+        return;
+    }
+    const existingFollow = await followersDao.findFollow(follow);
+    if (existingFollow) {
+        res.sendStatus(403);
+        return;
+    }
     const actualFollow = await followersDao.followUser(follow)
     res.json(actualFollow)
 }
